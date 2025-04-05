@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const CasinoSimulator = () => {
+const Slots = () => {
   const [slots, setSlots] = useState(['🍒', '🍒', '🍒']);
   const [spinning, setSpinning] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
@@ -162,4 +162,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CasinoSimulator;
+export default Slots;

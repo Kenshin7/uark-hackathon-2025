@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const GamblingGames = () => {
+const Blackjack = () => {
   const [money, setMoney] = useState(1000);
   const [bet, setBet] = useState(0);
   const [gameStatus, setGameStatus] = useState('place_bet');
@@ -335,4 +335,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GamblingGames;
+export default Blackjack;
