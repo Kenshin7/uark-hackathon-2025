@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { PaperProvider, Dialog, Portal, Button, Text } from 'react-native-paper';
 import { getRewards } from '../services/RewardsService.js';
-import { Reward } from '../components/Reward.js';
+import { Reward } from './reward-shop/Reward.js';
 
 const RewardShop = ({ balance, setBalance }) => {
   const [visible, setVisible] = useState(false);
