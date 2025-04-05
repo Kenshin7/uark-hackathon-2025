@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Text } from "react-native";
-import { Appbar, BottomNavigation } from "react-native-paper";
+import { Appbar, BottomNavigation, PaperProvider, Portal } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import WeightTracker from "./components/WeightTracker";
 import GamblingGames from "./components/GamblingGames";
@@ -26,15 +26,19 @@ export default function App() {
 	});
 
 	return (
-		<SafeAreaProvider>
-			<Appbar.Header mode="center-aligned">
-				<Appbar.Content title={<Text>{balance}</Text>}/>
-			</Appbar.Header>
-			<BottomNavigation
-				navigationState={{ index, routes }}
-				onIndexChange={setIndex}
-				renderScene={renderScene}/>
-		</SafeAreaProvider>
+		<PaperProvider>
+			<SafeAreaProvider>
+				<Portal>
+					<Appbar.Header mode="center-aligned">
+						<Appbar.Content title={<Text>{balance}</Text>}/>
+					</Appbar.Header>
+					<BottomNavigation
+						navigationState={{ index, routes }}
+						onIndexChange={setIndex}
+						renderScene={renderScene}/>
+				</Portal>
+			</SafeAreaProvider>
+		</PaperProvider>
 	);
 };
 
