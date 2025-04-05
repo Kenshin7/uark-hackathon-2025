@@ -333,11 +333,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#8B0000',
   },
   game: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#13563B',
     marginVertical: 16,
     borderRadius: 8,
     overflow: 'hidden',
@@ -381,6 +381,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 12,
+    color: '#D4AF37'
   },
   wall: {
     position: 'absolute',

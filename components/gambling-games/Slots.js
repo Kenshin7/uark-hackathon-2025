@@ -110,44 +110,44 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#222',
+    backgroundColor: '#8B0000',
     padding: 20
   },
   balance: {
     fontSize: 24,
-    color: 'gold',
+    color: '#D4AF37',
     marginBottom: 30
   },
   slots: {
     flexDirection: 'row',
     marginBottom: 30,
-    backgroundColor: '#16213e',
+    backgroundColor: '#13563B',
     padding: 20,
     borderRadius: 15,
     borderWidth: 3,
-    borderColor: 'gold'
+    borderColor: '#D4AF37'
   },
   slot: {
     fontSize: 60,
     width: 80,
     height: 80,
     marginHorizontal: 10,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: '#13563B',
     textAlign: 'center',
     textAlignVertical: 'center',
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#FFD700'
+    borderColor: '#D4AF37'
   },
   button: {
-    backgroundColor: 'red',
+    backgroundColor: '#13563B',
     padding: 15,
     borderRadius: 10,
     width: 200,
     alignItems: 'center'
   },
   buttonText: {
-    color: 'white',
+    color: '#D4AF37',
     fontSize: 20,
     fontWeight: 'bold'
   },
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   winMessage: {
     fontSize: 18,
-    color: '#FFD700',
+    color: '#D4AF37',
     marginBottom: 20,
     textAlign: 'center'
   }
