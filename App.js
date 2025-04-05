@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { Appbar, PaperProvider, Portal } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -22,14 +22,14 @@ export default function App() {
 			<SafeAreaProvider>
 				<Portal>
 					<Appbar.Header mode="center-aligned">
-						<Appbar.Content title={<Text>{balance}</Text>}/>
+						<Appbar.Content title={<Text style={styles.balanceText}>{balance}</Text>}/>
 					</Appbar.Header>
 
 					<NavigationContainer>
 						<Tab.Navigator
 							initialRouteName="weight"
 							activeColor="#30c0b0"
-							barStyle={{ backgroundColor: "#e090c0" }}>
+							barStyle={{ backgroundColor: "white" }}>
 
 							<Tab.Screen
 								name="weight"
@@ -75,6 +75,15 @@ export default function App() {
 				</Portal>
 			</SafeAreaProvider>
 		</PaperProvider>
+
 	);
 };
+const styles = StyleSheet.create({
+	balanceText: {
+		fontWeight: 'bold',
+		color: 'gray',
+		fontSize: 24, 
+		textAlign: 'center'  
+	}
+});
 
