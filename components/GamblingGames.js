@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-//import { Plinko } from "./gambling-games/";
+import Plinko from "./gambling-games/Plinko";
 import Slots from "./gambling-games/Slots";
 import Blackjack from "./gambling-games/Blackjack";
 
@@ -40,6 +40,10 @@ export default function GamblingGames() {
 				name="Game Menu"
 				component={GameMenu}/>
 			
+			<Stack.Screen
+				name="Plinko"
+				component={Plinko}/>
+
 			<Stack.Screen
 				name="Slots"
 				component={Slots}/>
