@@ -24,10 +24,10 @@ const Physics = (entities, { time, dispatch }) => {
     const velocity = Matter.Vector.magnitude(currentBall.velocity);
     
     // Check if ball has settled at the bottom
-    if (velocity < 0.3 && currentBall.position.y > 370) {
+    if (velocity < 0.3 && currentBall.position.y > SCREEN_HEIGHT*0.12+7*COL_SPACING) {
       const xPos = currentBall.position.x;
       const slotWidth = COL_SPACING;
-      const slotIndex = Math.min(slotMultipliers.length - 1, Math.floor(xPos / slotWidth));
+      const slotIndex = Math.floor((xPos-((SCREEN_WIDTH - (9) * COL_SPACING) / 2 + 5))/COL_SPACING)
       
       dispatch({ type: 'ballStopped', multiplier: slotMultipliers[slotIndex] });
       currentBall = null;
@@ -103,8 +103,8 @@ const setupWorld = () => {
     }
   );
   const bottomWall = Matter.Bodies.rectangle(
-    SCREEN_WIDTH / 2, SCREEN_HEIGHT*0.486,
-    SCREEN_WIDTH, SCREEN_WIDTH/8,
+    SCREEN_WIDTH / 2, SCREEN_HEIGHT*0.12+7*COL_SPACING+SCREEN_WIDTH/11,
+    SCREEN_WIDTH, SCREEN_HEIGHT/20,
     {
       isStatic: true,
       render: { fillStyle: wallColor },
@@ -247,21 +247,21 @@ const Plinko = ({ balance, setBalance }) => {
             // );
             // }
             
-            // Render pegs
-            if (body.label.includes('Circle') && body.label !== 'ball') {
-            return (
-                <View
-                key={`peg-${body.id}`}
-                style={[
-                    styles.peg,
-                    {
-                    left: body.position.x - PEG_RADIUS,
-                    top: body.position.y - PEG_RADIUS,
-                    }
-                ]}
-                />
-            );
-            }
+            // // Render pegs
+            // if (body.label.includes('Circle') && body.label !== 'ball') {
+            // return (
+            //     <View
+            //     key={`peg-${body.id}`}
+            //     style={[
+            //         styles.peg,
+            //         {
+            //         left: body.position.x - PEG_RADIUS,
+            //         top: body.position.y - PEG_RADIUS,
+            //         }
+            //     ]}
+            //     />
+            // );
+            // }
             
             return null;
         })}
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
   },
   slotsContainer: {
     position: 'absolute',
-    bottom: SCREEN_HEIGHT*0.162,
+    top: SCREEN_HEIGHT*0.12+9*COL_SPACING,
     height: SCREEN_HEIGHT/30,
     flexDirection: 'row',
   },
