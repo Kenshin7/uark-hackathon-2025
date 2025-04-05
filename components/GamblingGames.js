@@ -12,12 +12,12 @@ function GameMenu({ navigation }) {
 			<TouchableOpacity
 				style={[styles.button, styles.plinkoButton]}
 				onPress={() => { navigation.navigate("Plinko"); }}>
-				<Text style={styles.buttonText}>🍕 Plinko</Text>
+				<Text style={styles.buttonText}>🎯 Plinko</Text>
 			</TouchableOpacity>
 			<TouchableOpacity
 				style={[styles.button, styles.slotsButton]}
 				onPress={() => { navigation.navigate("Slots"); }}>
-				<Text style={styles.buttonText}>🍒 Slots</Text>
+				<Text style={styles.buttonText}>🎰 Slots</Text>
 			</TouchableOpacity>
 			<TouchableOpacity
 				style={[styles.button, styles.blackjackButton]}
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: 20,
-		backgroundColor: '#600000',
+		backgroundColor: '#8B0000',
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 64,
 		fontWeight: 'bold',
-		color: '#FFD700',
+		color: '#D4AF37',
 		textShadowColor: 'rgba(0, 0, 0, 0.75)',
 		textShadowOffset: {width: 3, height: 3},
 		textShadowRadius: 15,
@@ -118,16 +118,16 @@ const styles = StyleSheet.create({
 	plinkoButton: {
 		backgroundColor: '#4CAF50',
 		borderWidth: 3,
-		borderColor: '#2E7D32',
+		borderColor: '#D4AF37',
 	},
 	slotsButton: {
 		backgroundColor: '#F44336', 
 		borderWidth: 3,
-		borderColor: '#C62828',
+		borderColor: '#D4AF37',
 	},
 	blackjackButton: {
 		backgroundColor: '#2196F3',
 		borderWidth: 3,
-		borderColor: '#1565C0',
+		borderColor: '#D4AF37',
 	},
 });
