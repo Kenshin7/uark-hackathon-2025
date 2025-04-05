@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Blackjack = () => {
-  const [money, setMoney] = useState(1000);
+const Blackjack = ({ balance, setBalance }) => {
+  const [money, setMoney] = useState(balance);
   const [bet, setBet] = useState(0);
   const [gameStatus, setGameStatus] = useState('place_bet');
   const [playerHand, setPlayerHand] = useState([]);
@@ -118,6 +118,7 @@ const Blackjack = () => {
       setMessage('Push! Your bet is returned');
     }
   };
+  setBalance(money);
 
   const placeBet = (amount) => {
     if (money >= amount) {

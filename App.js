@@ -43,23 +43,31 @@ export default function App() {
 
 							<Tab.Screen
 								name="gamble"
-								component={GamblingGames}
 								options={{
 									tabBarLabel: "Fun Games!",
 									tabBarIcon: ({ color }) => (
-										<MaterialCommunityIcons name="gamepad-variant" color={color} size={26}/>
-									)
-								}}/>
+									<MaterialCommunityIcons name="gamepad-variant" color={color} size={26} />
+									),
+								}}
+								>
+								{() => (
+									<GamblingGames balance={balance} setBalance={setBalance} />
+								)}
+							</Tab.Screen>
+
 
 							<Tab.Screen
 								name="reward"
-								component={RewardShop}
 								options={{
 									tabBarLabel: "Reward Shop",
 									tabBarIcon: ({ color }) => (
 										<MaterialCommunityIcons name="shopping" color={color} size={26}/>
 									)
-								}}/>
+								}}>
+									{() => (
+										<RewardShop balance={balance} setBalance={setBalance} />
+									)}
+							</Tab.Screen>
 
 						</Tab.Navigator>
 					</NavigationContainer>
