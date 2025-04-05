@@ -28,30 +28,36 @@ function GameMenu({ navigation }) {
 	);
 }
 
-export default function GamblingGames() {
+export default function GamblingGames({ balance, setBalance }) {
 	const Stack = createStackNavigator();
 
 	return (
-		<Stack.Navigator
-			screenOptions={{
-				headerShown: false
-			}}>
+		<Stack.Navigator screenOptions={{ headerShown: false }}>
 			<Stack.Screen
 				name="Game Menu"
-				component={GameMenu}/>
-			
-			<Stack.Screen
-				name="Plinko"
-				component={Plinko}/>
+				component={GameMenu}
+			/>
 
-			<Stack.Screen
-				name="Slots"
-				component={Slots}/>
+			{/* Pass props to Plinko */}
+			<Stack.Screen name="Plinko">
+				{(props) => (
+				<Plinko {...props} balance={balance} setBalance={setBalance} />
+				)}
+			</Stack.Screen>
 
-			<Stack.Screen
-				name="Blackjack"
-				component={Blackjack}/>
+			{/* Pass props to Slots */}
+			<Stack.Screen name="Slots">
+				{(props) => (
+				<Slots {...props} balance={balance} setBalance={setBalance} />
+				)}
+			</Stack.Screen>
 
+			{/* Pass props to Blackjack */}
+			<Stack.Screen name="Blackjack">
+				{(props) => (
+				<Blackjack {...props} balance={balance} setBalance={setBalance} />
+				)}
+			</Stack.Screen>
 		</Stack.Navigator>
 	);
 };
@@ -62,7 +68,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: 20,
-		backgroundColor: '#600000',
+		backgroundColor: '#8B0000',
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -100,7 +106,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 64,
 		fontWeight: 'bold',
-		color: '#FFD700',
+		color: '#D4AF37',
 		textShadowColor: 'rgba(0, 0, 0, 0.75)',
 		textShadowOffset: {width: 3, height: 3},
 		textShadowRadius: 15,
@@ -118,16 +124,16 @@ const styles = StyleSheet.create({
 	plinkoButton: {
 		backgroundColor: '#4CAF50',
 		borderWidth: 3,
-		borderColor: '#2E7D32',
+		borderColor: '#D4AF37',
 	},
 	slotsButton: {
 		backgroundColor: '#F44336', 
 		borderWidth: 3,
-		borderColor: '#C62828',
+		borderColor: '#D4AF37',
 	},
 	blackjackButton: {
 		backgroundColor: '#2196F3',
 		borderWidth: 3,
-		borderColor: '#1565C0',
+		borderColor: '#D4AF37',
 	},
 });

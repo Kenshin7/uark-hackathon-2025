@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Blackjack = () => {
-  const [money, setMoney] = useState(1000);
+const Blackjack = ({ balance, setBalance }) => {
+  const [money, setMoney] = useState(balance);
   const [bet, setBet] = useState(0);
   const [gameStatus, setGameStatus] = useState('place_bet');
   const [playerHand, setPlayerHand] = useState([]);
@@ -118,6 +118,7 @@ const Blackjack = () => {
       setMessage('Push! Your bet is returned');
     }
   };
+  setBalance(money);
 
   const placeBet = (amount) => {
     if (money >= amount) {
@@ -212,12 +213,12 @@ const Blackjack = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2c3e50',
+    backgroundColor: '#8B0000',
     padding: 20,
   },
   title: {
     fontSize: 30,
-    color: '#ecf0f1',
+    color: '#D4AF37',
     textAlign: 'center',
     marginBottom: 20,
     fontWeight: 'bold',
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
   },
   moneyText: {
     fontSize: 20,
-    color: '#f1c40f',
+    color: '#D4AF37',
     fontWeight: 'bold',
     marginBottom: 10,
   },
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   betButton: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#13563B',
     padding: 10,
     borderRadius: 5,
     margin: 5,
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   hiddenCard: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#D4AF37',
   },
   cardValue: {
     fontSize: 20,

@@ -1,45 +1,79 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { ProgressBar, MD3Colors } from 'react-native-paper';
-import { View, Text, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { round } from "../../utils/Utilities";
 
-export default function WeightBar(props) {
-		
-	// Safely calculate progress, default to 0 if invalid
-	const progress = () => {
-		if (!props.goal || !props.weightHistory || 
-			isNaN(props.goal) || isNaN(props.weightHistory) ||
-			props.weightHistory === 0) {
-			return 0;
-		}
-		return Math.min(1, Math.max(0, props.weightHistory / props.goal));
-	};
-	const Currentweight = progress();
-	
+const loopDelay = 1000;
+const fn = 1000 * 60 * 60 * 24 * 7;
+const progressBarWidth = 300;
+
+export default function ProgressBar(props) {
+	//rerender second (for demo)
+	//https://stackoverflow.com/a/59861536
+	const [time, setTime] = useState(0);
+	useEffect(() => {
+		const interval = setInterval(() => { setTime(Date.now()); }, 1000);
+		return () => { clearInterval(interval); };
+	});
+
+	//access
+	const [goalEndWeight, goalEndDate, goalStartDate] = props.goal;
+	const goalStartWeight = props.weightHistory[0],
+		  currentWeight = props.weightHistory[props.weightHistory.length - 1];
+
+	//computations
+	const goalSlope = (goalEndWeight - goalStartWeight) / (goalEndDate - goalStartDate);
+
+	const ckptEndDate = goalEndDate - Math.floor((goalEndDate - time) / fn) * fn;
+	const ckptStartDate = ckptEndDate - fn;
+
+	const ckptEndWeight = goalEndWeight - goalSlope * (goalEndDate - ckptEndDate);
+	const ckptStartWeight = Math.min(goalEndWeight - goalSlope * (goalEndDate - ckptStartDate), goalStartWeight);
+		//need to keep track of this
+		//TODO: weightHistory.find(ckptStartWeight) || (ckptEndWeight + goalSlope * fn);
+
+	const ckptSlope = (ckptEndWeight - ckptStartWeight) / (ckptEndDate - ckptStartDate);
+
+	const target = ckptSlope * (time - ckptStartDate) + ckptStartWeight;
+
+	//display
+	const actualProgress = (currentWeight - ckptStartWeight) / (ckptEndWeight - ckptStartWeight),
+		  targetProgress = (target - ckptStartWeight) / (ckptEndWeight - ckptStartWeight);
+
 	return (
-		<View style={styles.bottomText}>
-	  <ProgressBar progress={Currentweight} theme={{ colors: { primary: 'red' } }} width ={300} style={{margin: 1}} />
-    </View>
-	
-	)
-}
-	 
+		<View>
+			<Text>Currently at {round(currentWeight, 2)} today</Text>
+			<Text>Should be at {round(target, 2)} today</Text>
+			<Text>Should be at {round(ckptEndWeight, 2)} by {(new Date(ckptEndDate)).toDateString()}</Text>
+			<Text>Want to be at {round(goalEndWeight, 2)} by {(new Date(goalEndDate)).toDateString()}</Text>
+			<View style={styles.bar}>
+				<View style={[
+					styles.actual,
+					{ width: Math.round(actualProgress * progressBarWidth) }
+				]}/>
+				<View style={[
+					styles.target,
+					{ width: Math.round(Math.max(0, (targetProgress - actualProgress)) * progressBarWidth) }
+				]}/>
+			</View>
+		</View>
+	);
+};
+
 const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
+	bar: {
+		backgroundColor: "#808080",
+		width: 300,
+		height: 30,
+		display: "flex",
+		flexDirection: "row"
 	},
-	bottomText: {
-	  position: 'absolute',
-	  bottom: 200,
-	  left: 45,
-	  right: 0,
-	  textAlign: 'center',
+	actual: {
+		backgroundColor: "#80ff80",
+		height: 30
 	},
+	target: {
+		backgroundColor: "#ff8080",
+		height: 30
+	}
+});
 
-  });
-  
-
-
-  
