@@ -67,7 +67,7 @@ const Blackjack = ({ balance, setBalance }) => {
 
   const checkBlackjack = () => {
     if (playerScore === 21) {
-      const newMoney = money + bet * 1.5;
+      const newMoney = money + bet + bet * 1.5;
       setMoney(Math.floor(newMoney));
       setGameStatus('game_over');
       setMessage('Blackjack! You win $' + (bet * 1.5));
@@ -104,13 +104,13 @@ const Blackjack = ({ balance, setBalance }) => {
     setGameStatus('game_over');
     
     if (newDealerScore > 21) {
-      const newMoney = money + bet;
+      const newMoney = money + 2*bet;
       setMoney(newMoney);
       setMessage('Dealer busts! You win $' + bet);
     } else if (newDealerScore > playerScore) {
       setMessage('Dealer wins! You lose $' + bet);
     } else if (newDealerScore < playerScore) {
-      const newMoney = money + bet;
+      const newMoney = money + 2*bet;
       setMoney(newMoney);
       setMessage('You win $' + bet);
     } else {
