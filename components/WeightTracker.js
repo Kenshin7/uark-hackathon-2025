@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Text } from "react-native";
 import WeightInput from "./weight-tracker/WeightInput";
 import GoalInput from "./weight-tracker/GoalInput";
-import ProgressBar from "./weight-tracker/ProgressBar";
+import WeightBar from "./weight-tracker/ProgressBar";
 import WeightStats from "./weight-tracker/WeightStats";
 
 export default function WeightTracker() {
@@ -23,8 +23,9 @@ export default function WeightTracker() {
 				visible={true}
 				setFunction={setGoal}/>
 
-			<ProgressBar
-				weightHistory={weightHistory}/>
+			<WeightBar
+				weightHistory = {weightHistory[0]}
+				goal = {goal[0]}/>
 
 			<WeightStats
 				weightHistory={weightHistory}/>
