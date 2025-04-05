@@ -11,14 +11,14 @@ export default function ProgressBar(props) {
 	//https://stackoverflow.com/a/59861536
 	const [time, setTime] = useState(0);
 	useEffect(() => {
-		const interval = setInterval(() => { setTime(Date.now()); }, 1000);
+		const interval = setInterval(() => { setTime(Date.now() + props.time_offset); }, 1000);
 		return () => { clearInterval(interval); };
 	});
 
 	//access
 	const [goalEndWeight, goalEndDate, goalStartDate] = props.goal;
-	const goalStartWeight = props.weightHistory[0],
-		  currentWeight = props.weightHistory[props.weightHistory.length - 1];
+	const goalStartWeight = props.weightHistory[0][0],
+		  currentWeight = props.weightHistory[props.weightHistory.length - 1][0];
 
 	//computations
 	const goalSlope = (goalEndWeight - goalStartWeight) / (goalEndDate - goalStartDate);

@@ -33,7 +33,9 @@ export default function App() {
 
 							<Tab.Screen
 								name="weight"
-								component={WeightTracker}
+								children={() => (
+									<WeightTracker balance={balance} setBalance={setBalance}/>
+								)}
 								options={{
 									tabBarLabel: "Weight Tracker",
 									tabBarIcon: ({ color }) => (
