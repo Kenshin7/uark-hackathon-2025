@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { round } from "../../utils/Utilities";
+import { clamp, round } from "../../utils/Utilities";
 
 const loopDelay = 1000;
 const fn = 1000 * 60 * 60 * 24 * 7;
@@ -36,8 +36,8 @@ export default function ProgressBar(props) {
 	const target = ckptSlope * (time - ckptStartDate) + ckptStartWeight;
 
 	//display
-	const actualProgress = (currentWeight - ckptStartWeight) / (ckptEndWeight - ckptStartWeight),
-		  targetProgress = (target - ckptStartWeight) / (ckptEndWeight - ckptStartWeight);
+	const actualProgress = clamp(0, 1, (currentWeight - ckptStartWeight) / (ckptEndWeight - ckptStartWeight)),
+		  targetProgress = clamp(0, 1, (target - ckptStartWeight) / (ckptEndWeight - ckptStartWeight));
 
 	return (
 		<View>
