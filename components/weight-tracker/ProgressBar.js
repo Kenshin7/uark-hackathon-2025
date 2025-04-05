@@ -11,7 +11,7 @@ export default function ProgressBar(props) {
 	//https://stackoverflow.com/a/59861536
 	const [time, setTime] = useState(0);
 	useEffect(() => {
-		const interval = setInterval(() => { setTime(Date.now() + props.time_offset); }, 1000);
+		const interval = setInterval(() => { setTime(Date.now() + props.time_offset); }, 100);
 		return () => { clearInterval(interval); };
 	});
 

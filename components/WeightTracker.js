@@ -10,15 +10,16 @@ const defaultWeight = 200;
 const daytime = 1000 * 60 * 60 * 24;
 const fn = 1000 * 60 * 60 * 24 * 7;
 const bonus = 1.05;
-var time_offset = 0;
 
 export default function WeightTracker({ balance, setBalance }) {
+	const [time_offset, set_time_offset] = useState(0);
+
 	const [weightHistory, setWeightHistory]
-		  = useState([defaultWeight, Math.floor(Date.now() / daytime) * daytime]);
+		  = useState([defaultWeight, Math.floor((Date.now() + time_offset) / daytime) * daytime]);
 	const [goal, setGoal] = useState([]);
 
 	const pushFunction = (weight) => {
-		setWeightHistory(weightHistory.concat([[weight, Math.floor(Date.now() / daytime) * daytime]]));
+		setWeightHistory(weightHistory.concat([[weight, Math.floor((Date.now() + time_offset) / daytime) * daytime]]));
 	};
 
 	const setFunction = (goal) => {
@@ -31,7 +32,7 @@ export default function WeightTracker({ balance, setBalance }) {
 
 		const goalEndDate = goal[1];
 
-		const ckptEndDate = goalEndDate - Math.floor((goalEndDate - time) / fn) * fn;
+		const ckptEndDate = goalEndDate - Math.floor((goalEndDate - time) / fn + 1) * fn;
 		const ckptStartDate = ckptEndDate - fn;
 		
 		const currentWeight = weightHistory[weightHistory.length - 1][0];
@@ -42,15 +43,16 @@ export default function WeightTracker({ balance, setBalance }) {
 		const weightLost = ckptStartWeight - currentWeight;
 
 		console.log(new Date(time).toDateString(), new Date(ckptEndDate).toDateString());
-		if(time >= ckptEndDate - daytime && time < ckptEndDate + daytime) {
+		//if(time >= ckptEndDate - daytime && time < ckptEndDate + daytime) {
+		if(new Date(time).toDateString() == new Date(ckptEndDate).toDateString()) {
 			//if on last day of checkpoint
 			if(weightLost >= ckptStartWeight - goal[0]) {
 				//if met goal, give some bonus
-				setBalance(balance + 3500 * weightLost * bonus);
+				setBalance(balance + 250 * weightLost * bonus);
 			}
 			else {
 				//just give how much weight was lost
-				setBalance(balance + 3500 * weightLost);
+				setBalance(balance + 250 * weightLost);
 			}
 		}
 	};
@@ -73,7 +75,7 @@ export default function WeightTracker({ balance, setBalance }) {
 			</View>
 
 			<Button
-				onPress={() => { time_offset += daytime; checkConvert(); }}>
+				onPress={() => { set_time_offset(time_offset + daytime); checkConvert(); }}>
 				(Demo Only) Fast-Forward a Day
 			</Button>
 		</View>
