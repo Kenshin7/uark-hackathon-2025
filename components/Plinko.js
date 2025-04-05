@@ -2,19 +2,23 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions, Animated } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import Matter from 'matter-js';
+import Sound from 'react-native-sound';
+
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+const PEG_RADIUS = 8;
+const BALL_RADIUS = 12;
 const ROWS = 10;
-const COL_SPACING = SCREEN_WIDTH/ROWS;
-const PEG_RADIUS = COL_SPACING/5;
-const BALL_RADIUS = PEG_RADIUS-1;
+const COL_SPACING = 41;
 const BET_AMOUNT = 100;
 
-const slotMultipliers = [3, 1.5, 1, .1, .1, 1, 1.5, 3];
-const SLOTS_CONTAINER_WIDTH = COL_SPACING*(ROWS-2); 
+const slotMultipliers = [8, 4, 1, .25, .25, 1, 4, 8];
+const SLOTS_CONTAINER_WIDTH = SCREEN_WIDTH * 0.85; // Use 80% of screen width
 const SLOT_COUNT = slotMultipliers.length;
 let currentBall = null;
 let accumulatedWinnings = 0;
+
+
 
 const Physics = (entities, { time, dispatch }) => {
   const engine = entities.physics.engine;
@@ -46,7 +50,7 @@ const setupWorld = () => {
 
   // Create triangular starting pegs (3 pegs)
   const pegs = [];
-  const startY = SCREEN_HEIGHT*0.12;
+  const startY = SCREEN_HEIGHT*0.1;
   
 
 
@@ -77,12 +81,12 @@ const setupWorld = () => {
   // Create boundaries
   const wallColor = '#FFA500'; 
   const leftWall = Matter.Bodies.rectangle(
-    SCREEN_WIDTH*-0.17, SCREEN_HEIGHT / 1.69,
-    SCREEN_WIDTH/8, SCREEN_HEIGHT,
+    -70, SCREEN_HEIGHT / 2 + 60,
+    50, SCREEN_HEIGHT,
     {
       isStatic: true,
       angle: angle, // Apply rotation
-      width: SCREEN_WIDTH/8, // custom
+      width: 50, // custom
       height: SCREEN_HEIGHT, // custom
       render: { fillStyle: wallColor },
       label: 'left-wall',
@@ -90,12 +94,12 @@ const setupWorld = () => {
     }
   );
   const rightWall = Matter.Bodies.rectangle(
-    SCREEN_WIDTH*1.095, SCREEN_HEIGHT / 1.69,
-    SCREEN_WIDTH/8, SCREEN_HEIGHT,
+    SCREEN_WIDTH+40, SCREEN_HEIGHT / 2 + 60,
+    50, SCREEN_HEIGHT,
     {
       isStatic: true,
       angle: -angle, // Tilt opposite direction
-      width: SCREEN_WIDTH/8, // custom
+      width: 50, // custom
       height: SCREEN_HEIGHT, // custom
       render: { fillStyle: wallColor },
       label: 'right-wall',
@@ -103,13 +107,13 @@ const setupWorld = () => {
     }
   );
   const bottomWall = Matter.Bodies.rectangle(
-    SCREEN_WIDTH / 2, SCREEN_HEIGHT*0.486,
-    SCREEN_WIDTH, SCREEN_WIDTH/8,
+    SCREEN_WIDTH / 2, 410,
+    SCREEN_WIDTH, 50,
     {
       isStatic: true,
       render: { fillStyle: wallColor },
       width: SCREEN_WIDTH, // custom
-      height: SCREEN_WIDTH/8, // custom
+      height: 50, // custom
       label: 'bottom-wall',
       collisionFilter: { category: 0x0001 }
     }
@@ -118,7 +122,7 @@ const setupWorld = () => {
     return engine;
 };
 
-const Plinko = ({ balance, setBalance }) => {
+const PlinkoGame = ({ balance, setBalance }) => {
   const [entities, setEntities] = useState(null);
   const [gameBalance, setGameBalance] = useState(balance);
   const [result, setResult] = useState(null);
@@ -157,7 +161,7 @@ const Plinko = ({ balance, setBalance }) => {
 
     // Random spawn position between top pegs
     const spawnX = SCREEN_WIDTH/2 - COL_SPACING * 0.6 + (Math.random() - 0.5) * COL_SPACING * 1.5;
-    const spawnY = SCREEN_HEIGHT*0.1;
+    const spawnY = 70;
 
     const ball = Matter.Bodies.circle(
       spawnX,
@@ -239,7 +243,7 @@ const Plinko = ({ balance, setBalance }) => {
             //             width: body.width,
             //             height: body.height,
             //             left: body.position.x - body.width / 2,
-            //             top: body.position.y - body.height / 2,
+            //            I would lik top: body.position.y - body.height / 2,
             //             transform: [{ rotate: `${body.angle}rad` }],
             //         }
             //     ]}
@@ -304,8 +308,8 @@ const Plinko = ({ balance, setBalance }) => {
                 let slotColor;
                 
                 // Color coding
-                if (multiplier >= 3) slotColor = '#4CAF50';      // Green
-                else if (multiplier >= 1.5) slotColor = '#2196F3'; // Blue
+                if (multiplier >= 5) slotColor = '#4CAF50';      // Green
+                else if (multiplier >= 2) slotColor = '#2196F3'; // Blue
                 else slotColor = '#F44336';                      // Red
 
                 return (
@@ -388,8 +392,8 @@ const styles = StyleSheet.create({
   },
   slotsContainer: {
     position: 'absolute',
-    bottom: SCREEN_HEIGHT*0.162,
-    height: SCREEN_HEIGHT/30,
+    bottom: 145,
+    height: 20,
     flexDirection: 'row',
   },
   multiplierSlot: {
@@ -409,4 +413,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Plinko;
+export default PlinkoGame;

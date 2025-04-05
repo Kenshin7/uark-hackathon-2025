@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Slots = () => {
+const Slots = ({ balance, setBalance }) => {
   const [slots, setSlots] = useState(['🍒', '🍒', '🍒']);
   const [spinning, setSpinning] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
-  const [balance, setBalance] = useState(100);
+  // const [balance, setBalance] = useState(100);
   const [winMessage, setWinMessage] = useState('');
 
   const spin = () => {

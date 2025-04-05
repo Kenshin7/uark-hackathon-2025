@@ -28,30 +28,36 @@ function GameMenu({ navigation }) {
 	);
 }
 
-export default function GamblingGames() {
+export default function GamblingGames({ balance, setBalance }) {
 	const Stack = createStackNavigator();
 
 	return (
-		<Stack.Navigator
-			screenOptions={{
-				headerShown: false
-			}}>
+		<Stack.Navigator screenOptions={{ headerShown: false }}>
 			<Stack.Screen
 				name="Game Menu"
-				component={GameMenu}/>
-			
-			<Stack.Screen
-				name="Plinko"
-				component={Plinko}/>
+				component={GameMenu}
+			/>
 
-			<Stack.Screen
-				name="Slots"
-				component={Slots}/>
+			{/* Pass props to Plinko */}
+			<Stack.Screen name="Plinko">
+				{(props) => (
+				<Plinko {...props} balance={balance} setBalance={setBalance} />
+				)}
+			</Stack.Screen>
 
-			<Stack.Screen
-				name="Blackjack"
-				component={Blackjack}/>
+			{/* Pass props to Slots */}
+			<Stack.Screen name="Slots">
+				{(props) => (
+				<Slots {...props} balance={balance} setBalance={setBalance} />
+				)}
+			</Stack.Screen>
 
+			{/* Pass props to Blackjack */}
+			<Stack.Screen name="Blackjack">
+				{(props) => (
+				<Blackjack {...props} balance={balance} setBalance={setBalance} />
+				)}
+			</Stack.Screen>
 		</Stack.Navigator>
 	);
 };
