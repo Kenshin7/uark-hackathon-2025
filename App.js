@@ -22,7 +22,7 @@ export default function App() {
 	const renderScene = BottomNavigation.SceneMap({
 		weight: WeightTracker,
 		gamble: GamblingGames,
-		reward: RewardShop
+		reward: () => (<RewardShop balance={balance} setBalance={setBalance}/>)
 	});
 
 	return (
