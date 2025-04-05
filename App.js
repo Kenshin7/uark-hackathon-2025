@@ -7,7 +7,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import WeightTracker from "./components/WeightTracker";
 import GamblingGames from "./components/GamblingGames";
 import RewardShop from "./components/RewardShop";
-import PlinkoGame from "./components/Plinko";
 
 
 export default function App() {
@@ -18,14 +17,12 @@ export default function App() {
 		{ key: "weight", title: "Weight Tracker", focusedIcon: "weight", unfocusedIcon: "weight" },
 		{ key: "gamble", title: "Fun Games", focusedIcon: "gamepad-variant", unfocusedIcon: "gamepad-variant-outline" },
 		{ key: "reward", title: "Reward Shop", focusedIcon: "shopping", unfocusedIcon: "shopping-outline" },
-		{ key: "plink", title: "Plinko", focusedIcon: "gamepad", unfocusedIcon: "gamepad" },
 	]);
 
 	const renderScene = BottomNavigation.SceneMap({
 		weight: WeightTracker,
 		gamble: GamblingGames,
 		reward: RewardShop,
-		plink: () => (<PlinkoGame balance={balance} setBalance={setBalance} />)
 	});
 
 	return (
