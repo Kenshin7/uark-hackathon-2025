@@ -247,21 +247,21 @@ const Plinko = ({ balance, setBalance }) => {
             // );
             // }
             
-            // // Render pegs
-            // if (body.label.includes('Circle') && body.label !== 'ball') {
-            // return (
-            //     <View
-            //     key={`peg-${body.id}`}
-            //     style={[
-            //         styles.peg,
-            //         {
-            //         left: body.position.x - PEG_RADIUS,
-            //         top: body.position.y - PEG_RADIUS,
-            //         }
-            //     ]}
-            //     />
-            // );
-            // }
+            // Render pegs
+            if (body.label.includes('Circle') && body.label !== 'ball') {
+            return (
+                <View
+                key={`peg-${body.id}`}
+                style={[
+                    styles.peg,
+                    {
+                    left: body.position.x - PEG_RADIUS,
+                    top: body.position.y - PEG_RADIUS,
+                    }
+                ]}
+                />
+            );
+            }
             
             return null;
         })}
